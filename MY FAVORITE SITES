@@ -1,0 +1,27 @@
+<hrml>
+     <head>
+
+<title> I miei siti preferiti </title>
+
+</head>
+
+<body bgcolor="#FFFF00">
+<FONT face="Verdana">
+<ul>
+  <li><a href="https://www.sephora.it/">Visit W3Schools.com!</a></li>
+  <li><a href="https://www.twitch.tv/">Visit W3Schools.com!</a></li>
+  <li><a href="https://www.douglas.it/it">Visit W3Schools.com!</a></li>
+  <li><a href="https://www.netflix.com/browse">Visit W3Schools.com!</a></li>
+  <li><a href="https://www.instagram.com/">Visit W3Schools.com!</a></li>
+  <li><a href="https://it.pinterest.com/">Visit W3Schools.com!</a></li>
+  <li><a href="https://www.youtube.com/">Visit W3Schools.com!</a></li>
+<li><a href="https://www.zara.com/it/">Visit W3Schools.com!</a></li>
+<li><a href="https://www.subdued.com/it_it">Visit W3Schools.com!</a></li>
+<li><a href="https://www.stradivarius.com/it">Visit W3Schools.com!</a></li>
+</ul>
+
+
+</FONT>
+</body>
+
+</html>
