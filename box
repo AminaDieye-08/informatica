@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercizio DIV - CSS</title>
+   <Style>
+      #MarcoHeader{
+            height: 100px;
+            width: 100%;
+            border: 2px solid #0ce713;
+      }
+      #MarcoBody{
+            height: 100px;
+            width: 100%;
+            border: 2px solid #1e0db3;
+      }   
+
+
+
+   </Style>
+
+
+
+</head>
+<body>
+   <div id="MarcoHeader">
+
+    <p> Lezione sui css   </p>
+
+
+   </div>
+
+    <div id="MarcoBody">
+
+        <p> All'interno di questo quadrato posso inserire  sezione
+            per input e output   </p>
+   
+   
+        </div>
+        <div id="MarcoFooter">
+
+            <p> All'interno di questo quadrato posso inserire  sezione
+                per input e output   </p>
+       
+       
+            </div>
+   
+</body>
+</html>
+
+Aggiungi commento sul corso…
+
+
+Annuncio: "<!DOCTYPE html> <html lang="en"> <head>…"
+Marco Palladino
+Data di creazione: 2 ott2 ott
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lezione 1 css</title>
+
+    <Style>
+          body{ background-color: bisque;}
+         
+          p{font-size: larger;
+            font-family: 'Times New Roman', Times, serif;    
+        }
+         h1{color:blue}
+
+    </Style>
+
+
+
+</head>
+<body>
+  <p><h1> La grammatica css ha come comando di base : </h1>
+
+  </p>
+  <p> Selettore { proprietà:valore;
+                proprietà :valore;
+  }
+
+  </p>
+
+  <p>Ci sono tre tipi di selettori:  
+    Selettore di tipo tag html
+    Selettore di tipo ID
+    Selettore di tipo class
+  </p>
+
+
+
+</body>
+</html>
