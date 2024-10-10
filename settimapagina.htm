@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>esercizio 1 javascript</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px; px;
+            border: 10px solid #000;
+            background-color:rgb(237, 237, 237);
+        }
+    </style>
+    <script>
+        function ScriviNelBox(boxNumber) {
+            const messaggi = [
+                "Messaggio per il Box 1",
+                "Messaggio per il Box 2",
+                "Messaggio per il Box 3",
+                "Messaggio per il Box 4"
+            ];
+            document.getElementById(`box${boxNumber}`).innerText = messaggi[boxNumber - 1];
+        }
+    </script>
+</head>
+<body>
+
+    <div class="box" id="box1"></div>
+    <div class="box" id="box2"></div>
+    <div class="box" id="box3"></div>
+    <div class="box" id="box4"></div>
+
+    <br>
+
+    <button onclick="scriviNelBox(1)">Scrivi nel Box 1</button>
+    <button onclick="scriviNelBox(2)">Scrivi nel Box 2</button>
+    <button onclick="scriviNelBox(3)">Scrivi nel Box 3</button>
+    <button onclick="scriviNelBox(4)">Scrivi nel Box 4</button>
+
+</body>
+</html>
