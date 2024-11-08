@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box e Bottoni</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px; px;
+            border: 1px solid #000;
+            margin: 10px;
+            padding: 10px;
+            background-color:rgb(237, 237, 237);
+            display: inline-block;
+        }
+    </style>
+    <script>
+        function scriviNelBox(boxNumber) {
+            const messaggi = [
+                ""L'importante è non smettere di mettersi in discussione". - Albert Einstein",
+                ""Più imparo, più mi rendo conto di quante cose non so". - Isaac Newton",
+                ""L'universo non ha l'obbligo di darvi un senso". - Neil deGrasse Tyson",
+                ""La scienza è la chiave per svelare i misteri dell'universo e sfruttare il suo potere a beneficio dell'umanità". - Vera Rubin"
+            ];
+            document.getElementById(`box${boxNumber}`).innerText = messaggi[boxNumber - 1];
+        }
+    </script>
+</head>
+<body>
+
+    <div class="box" id="box1"></div>
+    <div class="box" id="box2"></div>
+    <div class="box" id="box3"></div>
+    <div class="box" id="box4"></div>
+
+    <br>
+
+    <button onclick="scriviNelBox(1)">Scrivi nel Box 1</button>
+    <button onclick="scriviNelBox(2)">Scrivi nel Box 2</button>
+    <button onclick="scriviNelBox(3)">Scrivi nel Box 3</button>
+    <button onclick="scriviNelBox(4)">Scrivi nel Box 4</button>
+
+</body>
+</html>
