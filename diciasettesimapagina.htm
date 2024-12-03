@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolo Giorni di Vita</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Georgia;
+            font-size: 35px;
+            padding: 50px;
+        }
+        input {
+            margin: 25px;
+            color: #6248d6d3;
+            font-size: 75px;
+            width: 400px;
+            height: 100px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(52, 1fr);
+            gap: 2px;
+            margin-top: 20px;
+        }
+        .cell {
+            width: 10px;
+            height: 10px;
+        }
+        .lived {
+            background-color: blue;
+        }
+        .remaining {
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calcola da quanto tempo sei in vita</h1>
+    <form id="lifeForm">
+        Nome:<br>
+        <input type="text" id="name" name="name" required><br>
+        Data di Nascita:<br>
+        <input type="date" id="birthdate" name="birthdate" required><br><br>
+        <input type="submit" value="Calcola">
+    </form>
+    <div id="result"></div>
+    <div id="grid" class="grid"></div>
+
+    <script>
+        document.getElementById('lifeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let name = document.getElementById('name').value;
+            let birthdate = new Date(document.getElementById('birthdate').value);
+            let now = new Date();
+            let diff = now - birthdate;
+            let weeks = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
+            let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            let hours = Math.floor(diff / (1000 * 60 * 60));
+            let seconds = Math.floor(diff / 1000);
+
+            document.getElementById('result').innerHTML = "Ciao " + name + "! Sei in vita da:<br>" +
+                weeks + " settimane<br>" +
+                days + " giorni<br>" +
+                hours + " ore<br>" +
+                seconds + " secondi";
+
+            let expectedAge = prompt("A che età pensi di morire?");
+            if (expectedAge != null) {
+                let remainingYears = expectedAge - now.getFullYear() + birthdate.getFullYear();
+                let remainingWeeks = remainingYears * 52;
+
+                let grid = document.getElementById('grid');
+                grid.innerHTML = '';
+
+                for (let i = 0; i < weeks + remainingWeeks; i++) {
+                    let cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    if (i < weeks) {
+                        cell.classList.add('lived');
+                    } else {
+                        cell.classList.add('remaining');
+                    }
+                    grid.appendChild(cell);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+GROSSO SILVIA
+dom 1 dic, 15:16 (2 giorni fa)
+a me
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolo Giorni di Vita</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Georgia;
+            font-size: 35px;
+            padding: 50px;
+        }
+        input {
+            margin: 25px;
+            color:#6248d6d3;
+            font-size: 55px;
+            width: 400px;
+            height: 100px;
+        }
+        .square {
+            width: 20px;
+            height: 20px;
+            margin: 1px;
+            display: inline-block;
+            background-color: lightgray;
+        }
+        .square.lived {
+            background-color: #4CAF50; /* Verde per le settimane vissute */
+        }
+        .container {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calcola da quanto tempo sei in vita</h1>
+    <form id="lifeForm">
+        Nome:<br>
+        <input type="text" id="name" name="name" required><br>
+        Data di Nascita:<br>
+        <input type="date" id="birthdate" name="birthdate" required><br><br>
+        <input type="submit" value="Calcola">
+    </form>
+    <div id="result"></div>
+    <div id="squaresContainer" class="container"></div>
+
+    <script>
+        document.getElementById('lifeForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            let name = document.getElementById('name').value;
+            let birthdate = new Date(document.getElementById('birthdate').value);
+            let now = new Date();
+            let diff = now - birthdate;
+            let weeks = Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
+            let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            let hours = Math.floor(diff / (1000 * 60 * 60));
+            let seconds = Math.floor(diff / 1000);
+
+            document.getElementById('result').innerHTML = "Ciao " + name + "! Sei in vita da:<br>" +
+                weeks + " settimane<br>" +
+                days + " giorni<br>" +
+                hours + " ore<br>" +
+                seconds + " secondi";
+
+            let expectedAge = prompt("A che età pensi di morire?");
+            if (expectedAge != null) {
+                let remainingYears = expectedAge - now.getFullYear() + birthdate.getFullYear();
+                let remainingWeeks = Math.floor(remainingYears * 52);
+                document.getElementById('result').innerHTML += "<br>Ti restano circa " + remainingWeeks + " settimane di vita.";
+
+                // Creazione dei quadratini
+                let totalWeeks = weeks + remainingWeeks;
+                const container = document.getElementById('squaresContainer');
+                container.innerHTML = ''; // Pulisce il contenitore prima di aggiungere nuovi quadrati
+                for (let i = 0; i < totalWeeks; i++) {
+                    let square = document.createElement('div');
+                    square.className = 'square';
+                    if (i < weeks) {
+                        square.classList.add('lived'); // Colora le settimane vissute
+                    }
+                    container.appendChild(square);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
