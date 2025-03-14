@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generatore di Frasi Casuali</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        form {
+            margin: 20px auto;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        p {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generatore di Frasi Casuali</h1>
+    <p>Premi il pulsante per generare una frase casuale!</p>
+    <form id="phraseForm">
+        <button type="button" onclick="generatePhrase()">Genera Frase</button>
+    </form>
+    <p id="output"></p>
+
+    <script>
+        const phrases = [
+            "La fortuna aiuta gli audaci.",
+            "Chi dorme non piglia pesci.",
+            "Ogni giorno è un'opportunità.",
+            "Pensa positivo, agisci positivo.",
+            "Non smettere mai di sognare."
+        ];
+
+        function generatePhrase() {
+            const randomIndex = Math.floor(Math.random() * phrases.length);
+            const randomPhrase = phrases[randomIndex];
+            document.getElementById("output").textContent = randomPhrase;
+        }
+    </script>
+</body>
+</html>
