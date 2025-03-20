@@ -1,18 +1,16 @@
-// Funzione principale
-function calcolaRisultati(a, b, c, d) {
-    // Primo risultato: somma pesata degli input
-    const primoRisultato = (a * 0.5) + (b * 0.3) + (c * 0.1) + (d * 0.1);
+// Funzione per calcolare due output basati sugli input numerici
+function calcolaOutput(a, b, c, d) {
+    // Primo output: media dei quattro numeri
+    const primoOutput = (a + b + c + d) / 4;
 
-    // Secondo risultato: applicazione della funzione sigmoide al primo risultato
-    const secondoRisultato = 1 / (1 + Math.exp(-primoRisultato));
+    // Secondo output: quadrato del primo output
+    const secondoOutput = Math.pow(primoOutput, 2);
 
-    // Restituisce entrambi i risultati
-    return { primoRisultato, secondoRisultato };
+    // Restituzione dei risultati
+    return { primoOutput, secondoOutput };
 }
 
-// Test della funzione
-const input = { a: 2, b: 3, c: 1, d: 4 };
-const risultati = calcolaRisultati(input.a, input.b, input.c, input.d);
-
-console.log("Primo risultato:", risultati.primoRisultato);
-console.log("Secondo risultato:", risultati.secondoRisultato);
+// Esempio di utilizzo della funzione
+const risultati = calcolaOutput(2, 4, 6, 8);
+console.log("Primo Output:", risultati.primoOutput); // Risultato: 5
+console.log("Secondo Output:", risultati.secondoOutput); // Risultato: 25
