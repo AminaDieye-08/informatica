@@ -1,16 +1,53 @@
-// Funzione per calcolare due output basati sugli input numerici
-function calcolaOutput(a, b, c, d) {
-    // Primo output: media dei quattro numeri
-    const primoOutput = (a + b + c + d) / 4;
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolo con Funzione Rettificatrice</title>
+    <script>
+        // Funzione per calcolare due output usando la Funzione Rettificatrice
+        function calcolaReLU() {
+            // Recupero dei valori dagli input del modulo
+            const a = parseFloat(document.getElementById("inputA").value) || 0;
+            const b = parseFloat(document.getElementById("inputB").value) || 0;
+            const c = parseFloat(document.getElementById("inputC").value) || 0;
+            const d = parseFloat(document.getElementById("inputD").value) || 0;
 
-    // Secondo output: quadrato del primo output
-    const secondoOutput = Math.pow(primoOutput, 2);
+            // Calcolo della somma dei numeri
+            const somma = a + b + c + d;
 
-    // Restituzione dei risultati
-    return { primoOutput, secondoOutput };
-}
+            // Primo risultato usando la Funzione Rettificatrice
+            const primoOutput = Math.max(0, somma);
 
-// Esempio di utilizzo della funzione
-const risultati = calcolaOutput(2, 4, 6, 8);
-console.log("Primo Output:", risultati.primoOutput); // Risultato: 5
-console.log("Secondo Output:", risultati.secondoOutput); // Risultato: 25
+            // Secondo risultato: quadrato del primo risultato rettificato
+            const secondoOutput = Math.max(0, Math.pow(primoOutput, 2));
+
+            // Visualizzazione dei risultati
+            document.getElementById("primoOutput").textContent = `Primo Output (ReLU della somma): ${primoOutput}`;
+            document.getElementById("secondoOutput").textContent = `Secondo Output (ReLU del quadrato): ${secondoOutput}`;
+        }
+    </script>
+</head>
+<body>
+    <h1>Calcolo con Funzione Rettificatrice (ReLU)</h1>
+    <form onsubmit="event.preventDefault(); calcolaReLU();">
+        <label for="inputA">Valore A:</label>
+        <input type="number" id="inputA" required><br><br>
+
+        <label for="inputB">Valore B:</label>
+        <input type="number" id="inputB" required><br><br>
+
+        <label for="inputC">Valore C:</label>
+        <input type="number" id="inputC" required><br><br>
+
+        <label for="inputD">Valore D:</label>
+        <input type="number" id="inputD" required><br><br>
+
+        <button type="submit">Calcola</button>
+    </form>
+
+    <h2>Risultati:</h2>
+    <p id="primoOutput">Primo Output: </p>
+    <p id="secondoOutput">Secondo Output: </p>
+</body>
+</html>
