@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Numeri Casuali</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #output {
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generatore di Numeri Casuali</h1>
+    <button onclick="iniziaGenerazione()">Avvia Generazione</button>
+    <div id="output"></div>
+
+    <script>
+        let numeriCasuali = [];
+        let rapporti = [];
+        const outputDiv = document.getElementById('output');
+
+        function generaNumeroCasuale() {
+            return Math.random(); // Genera un numero casuale tra 0 e 1 con float
+        }
+
+        function calcolaDistanza(numero, metaRange) {
+            return Math.abs(numero - metaRange);
+        }
+
+        function aggiornaOutput() {
+            let ultimoNumero = numeriCasuali[numeriCasuali.length - 1];
+            let rapporto = rapporti.length > 0 ? rapporti[rapporti.length - 1] : "-";
+            outputDiv.textContent += `Numero: ${ultimoNumero.toFixed(4)} | Rapporto: ${rapporto.toFixed(4)}\n`;
+        }
+
+        function iniziaGenerazione() {
+            let intervallo = setInterval(() => {
+                let nuovoNumero = generaNumeroCasuale();
+                numeriCasuali.push(nuovoNumero);
+
+                if (numeriCasuali.length > 1) {
+                    let rapporto = nuovoNumero / numeriCasuali[numeriCasuali.length - 2];
+                    rapporti.push(rapporto);
+                }
+
+                if (numeriCasuali.length % 50 === 0) {
+                    let media = numeriCasuali.slice(-50).reduce((acc, num) => acc + num, 0) / 50;
+                    let metaRange = 0.5; // La metà del range è sempre 0.5 per i numeri tra 0 e 1
+                    numeriCasuali.slice(-50).forEach(numero => {
+                        let distanza = calcolaDistanza(numero, metaRange);
+                        console.log(`Distanza dal centro (0.5): ${distanza.toFixed(4)}`);
+                    });
+                    outputDiv.textContent += `Media degli ultimi 50 numeri: ${media.toFixed(4)}\n`;
+                }
+
+                aggiornaOutput();
+            }, 500); // Genera ogni 500ms
+
+            // Interrompi dopo un certo tempo (opzionale)
+            setTimeout(() => clearInterval(intervallo), 10000); // Esempio: interrompi dopo 10 secondi
+        }
+    </script>
+</body>
+</html>
+
