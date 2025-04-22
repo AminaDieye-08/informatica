@@ -1,55 +1,82 @@
-class ClipProducer {
-  constructor(name, productionRatePerSecond) {
-    this.name = name; // Nome della fabbrica
-    this.productionRate = productionRatePerSecond; // Quante graffette produce al secondo
-    this.totalClips = 0; // Conteggio totale di graffette prodotte
-    this.running = false; // Stato della produzione
-    this._intervalId = null; // ID dell'intervallo per fermare la produzione
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clip Producer</title>
+</head>
+<body>
+  <h1>Clip Producer</h1>
+  <p>Apri la console del browser per vedere i risultati!</p>
 
-  startProduction() {
-    if (this.running) return;
-    this.running = true;
-    this._intervalId = setInterval(() => {
-      this.totalClips += this.productionRate;
-      console.log(`[${this.name}] Graffette totali: ${this.totalClips}`);
-    }, 1000);
-  }
+  <script>
+    // Definizione della classe ClipProducer
+    class ClipProducer {
+      constructor(name, productionRatePerSecond) {
+        this.name = name; // Nome della fabbrica
+        this.productionRate = productionRatePerSecond; // Quante graffette produce al secondo
+        this.totalClips = 0; // Conteggio totale di graffette prodotte
+        this.running = false; // Stato della produzione
+        this._intervalId = null; // ID dell'intervallo per fermare la produzione
+      }
 
-  stopProduction() {
-    if (!this.running) return;
-    clearInterval(this._intervalId);
-    this._intervalId = null;
-    this.running = false;
-    console.log(`[${this.name}] Produzione fermata.`);
-  }
+      startProduction() {
+        if (this.running) return;
+        this.running = true;
+        this._intervalId = setInterval(() => {
+          this.totalClips += this.productionRate;
+          console.log(`[${this.name}] Graffette totali: ${this.totalClips}`);
+        }, 1000);
+      }
 
-  resetProduction() {
-    this.totalClips = 0;
-    console.log(`[${this.name}] Conteggio graffette azzerato.`);
-  }
+      stopProduction() {
+        if (!this.running) return;
+        clearInterval(this._intervalId);
+        this._intervalId = null;
+        this.running = false;
+        console.log(`[${this.name}] Produzione fermata.`);
+      }
 
-  status() {
-    return {
-      name: this.name,
-      running: this.running,
-      productionRate: this.productionRate,
-      totalClips: this.totalClips
-    };
-  }
+      resetProduction() {
+        this.totalClips = 0;
+        console.log(`[${this.name}] Conteggio graffette azzerato.`);
+      }
 
-  calculateTimeToGoal(goalClips) {
-    if (goalClips <= this.totalClips) {
-      console.log(`[${this.name}] Obiettivo già raggiunto o superato.`);
-      return 0;
+      status() {
+        return {
+          name: this.name,
+          running: this.running,
+          productionRate: this.productionRate,
+          totalClips: this.totalClips
+        };
+      }
+
+      calculateTimeToGoal(goalClips) {
+        if (goalClips <= this.totalClips) {
+          console.log(`[${this.name}] Obiettivo già raggiunto o superato.`);
+          return 0;
+        }
+        if (this.productionRate <= 0) {
+          console.log(`[${this.name}] Il tasso di produzione è pari a zero. Impossibile calcolare il tempo.`);
+          return Infinity;
+        }
+        const remainingClips = goalClips - this.totalClips;
+        const timeInSeconds = remainingClips / this.productionRate;
+        console.log(`[${this.name}] Tempo stimato per raggiungere ${goalClips} graffette: ${timeInSeconds.toFixed(2)} secondi.`);
+        return timeInSeconds;
+      }
     }
-    if (this.productionRate <= 0) {
-      console.log(`[${this.name}] Il tasso di produzione è pari a zero. Impossibile calcolare il tempo.`);
-      return Infinity;
-    }
-    const remainingClips = goalClips - this.totalClips;
-    const timeInSeconds = remainingClips / this.productionRate;
-    console.log(`[${this.name}] Tempo stimato per raggiungere ${goalClips} graffette: ${timeInSeconds.toFixed(2)} secondi.`);
-    return timeInSeconds;
-  }
-}
+
+    // Creazione di un'istanza e utilizzo della classe
+    const factory = new ClipProducer("Fabbrica 1", 5);
+    factory.startProduction();
+
+    setTimeout(() => {
+      factory.calculateTimeToGoal(50); // Calcola il tempo per produrre 50 graffette
+    }, 3000);
+
+    setTimeout(() => {
+      factory.stopProduction();
+    }, 10000);
+  </script>
+</body
