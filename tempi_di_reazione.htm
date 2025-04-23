@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Gioco dei Numeri Primi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    #numberBox {
+      font-size: 48px;
+      margin: 20px auto;
+      width: 200px;
+      height: 100px;
+      line-height: 100px;
+      background-color: #f2f2f2;
+      border: 2px solid #333;
+      cursor: pointer;
+    }
+    #results {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Clicca il Numero Primo!</h1>
+  <div id="numberBox">Pronto?</div>
+  <button onclick="startGame()">Inizia Gioco</button>
+
+  <div id="results"></div>
+
+  <script>
+    const reactionTimes = [];
+    let currentNumber = null;
+    let startTime = null;
+    let interval = null;
+
+    function isPrime(n) {
+      if (n < 2) return false;
+      for (let i = 2; i <= Math.sqrt(n); i++) {
+        if (n % i === 0) return false;
+      }
+      return true;
+    }
+
+    function showRandomNumber() {
+      currentNumber = Math.floor(Math.random() * 100) + 1;
+      document.getElementById('numberBox').textContent = currentNumber;
+      startTime = new Date().getTime();
+    }
+
+    function startGame() {
+      document.getElementById('results').textContent = "";
+      reactionTimes.length = 0;
+      showRandomNumber();
+      if (interval) clearInterval(interval);
+      interval = setInterval(showRandomNumber, 3000);
+    }
+
+    document.getElementById('numberBox').addEventListener('click', () => {
+      if (isPrime(currentNumber)) {
+        const reactionTime = new Date().getTime() - startTime;
+        reactionTimes.push(reactionTime);
+        document.getElementById('results').textContent = `Tempi di reazione: ${reactionTimes.join(', ')} ms`;
+      }
+    });
+  </script>
+
+</body>
+</html>
