@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Gioco dei Numeri Primi</title>
+  <title>Clicca il Numero Dispari</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -10,64 +10,96 @@
       margin-top: 50px;
     }
     #numberBox {
-      font-size: 48px;
-      margin: 20px auto;
-      width: 200px;
-      height: 100px;
-      line-height: 100px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .number {
+      font-size: 30px;
+      width: 80px;
+      height: 80px;
+      line-height: 80px;
       background-color: #f2f2f2;
       border: 2px solid #333;
+      border-radius: 10px;
       cursor: pointer;
     }
     #results {
+      margin-top: 20px;
+    }
+    #startButton {
+      padding: 10px 20px;
+      font-size: 16px;
       margin-top: 20px;
     }
   </style>
 </head>
 <body>
 
-  <h1>Clicca il Numero Primo!</h1>
-  <div id="numberBox">Pronto?</div>
-  <button onclick="startGame()">Inizia Gioco</button>
+  <h1>Clicca il Numero Dispari!</h1>
+  <button id="startButton" onclick="startGame()">Inizia Gioco</button>
 
+  <div id="numberBox"></div>
   <div id="results"></div>
 
   <script>
     const reactionTimes = [];
-    let currentNumber = null;
     let startTime = null;
     let interval = null;
 
-    function isPrime(n) {
-      if (n < 2) return false;
-      for (let i = 2; i <= Math.sqrt(n); i++) {
-        if (n % i === 0) return false;
+    // Funzione per verificare se un numero è dispari
+    function isOdd(n) {
+      return n % 2 !== 0;
+    }
+
+    // Funzione per generare e mostrare numeri casuali
+    function showNumbers() {
+      const numbersContainer = document.getElementById('numberBox');
+      numbersContainer.innerHTML = ''; // Pulisce i numeri precedenti
+
+      // Genera 5 numeri casuali
+      const numbers = [];
+      for (let i = 0; i < 5; i++) {
+        numbers.push(Math.floor(Math.random() * 100) + 1);
       }
-      return true;
+
+      // Mostra i numeri sullo schermo
+      numbers.forEach(number => {
+        const numberElement = document.createElement('div');
+        numberElement.textContent = number;
+        numberElement.classList.add('number');
+        numberElement.addEventListener('click', () => handleClick(number));
+        numbersContainer.appendChild(numberElement);
+      });
+
+      startTime = new Date().getTime(); // Registra l'ora di apparizione dei numeri
     }
 
-    function showRandomNumber() {
-      currentNumber = Math.floor(Math.random() * 100) + 1;
-      document.getElementById('numberBox').textContent = currentNumber;
-      startTime = new Date().getTime();
-    }
+    // Funzione per gestire il clic su un numero
+    function handleClick(number) {
+      const reactionTime = new Date().getTime() - startTime;
 
-    function startGame() {
-      document.getElementById('results').textContent = "";
-      reactionTimes.length = 0;
-      showRandomNumber();
-      if (interval) clearInterval(interval);
-      interval = setInterval(showRandomNumber, 3000);
-    }
-
-    document.getElementById('numberBox').addEventListener('click', () => {
-      if (isPrime(currentNumber)) {
-        const reactionTime = new Date().getTime() - startTime;
+      // Se il numero cliccato è dispari, registra il tempo
+      if (isOdd(number)) {
         reactionTimes.push(reactionTime);
         document.getElementById('results').textContent = `Tempi di reazione: ${reactionTimes.join(', ')} ms`;
       }
-    });
+
+      // Continua il gioco
+      showNumbers();
+    }
+
+    // Funzione per avviare il gioco
+    function startGame() {
+      document.getElementById('results').textContent = ''; // Resetta i risultati
+      reactionTimes.length = 0; // Pulisce l'array dei tempi
+      showNumbers();
+      if (interval) clearInterval(interval);
+      interval = setInterval(showNumbers, 3000); // Mostra nuovi numeri ogni 3 secondi
+    }
   </script>
 
 </body>
 </html>
+
