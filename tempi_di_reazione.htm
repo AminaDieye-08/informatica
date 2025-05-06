@@ -40,66 +40,6 @@
   <h1>Clicca il Numero Dispari!</h1>
   <button id="startButton" onclick="startGame()">Inizia Gioco</button>
 
-  <div id="numberBox"></div>
-  <div id="results"></div>
+  <
 
-  <script>
-    const reactionTimes = [];
-    let startTime = null;
-    let interval = null;
-
-    // Funzione per verificare se un numero è dispari
-    function isOdd(n) {
-      return n % 2 !== 0;
-    }
-
-    // Funzione per generare e mostrare numeri casuali
-    function showNumbers() {
-      const numbersContainer = document.getElementById('numberBox');
-      numbersContainer.innerHTML = ''; // Pulisce i numeri precedenti
-
-      // Genera 5 numeri casuali
-      const numbers = [];
-      for (let i = 0; i < 5; i++) {
-        numbers.push(Math.floor(Math.random() * 100) + 1);
-      }
-
-      // Mostra i numeri sullo schermo
-      numbers.forEach(number => {
-        const numberElement = document.createElement('div');
-        numberElement.textContent = number;
-        numberElement.classList.add('number');
-        numberElement.addEventListener('click', () => handleClick(number));
-        numbersContainer.appendChild(numberElement);
-      });
-
-      startTime = new Date().getTime(); // Registra l'ora di apparizione dei numeri
-    }
-
-    // Funzione per gestire il clic su un numero
-    function handleClick(number) {
-      const reactionTime = new Date().getTime() - startTime;
-
-      // Se il numero cliccato è dispari, registra il tempo
-      if (isOdd(number)) {
-        reactionTimes.push(reactionTime);
-        document.getElementById('results').textContent = `Tempi di reazione: ${reactionTimes.join(', ')} ms`;
-      }
-
-      // Continua il gioco
-      showNumbers();
-    }
-
-    // Funzione per avviare il gioco
-    function startGame() {
-      document.getElementById('results').textContent = ''; // Resetta i risultati
-      reactionTimes.length = 0; // Pulisce l'array dei tempi
-      showNumbers();
-      if (interval) clearInterval(interval);
-      interval = setInterval(showNumbers, 3000); // Mostra nuovi numeri ogni 3 secondi
-    }
-  </script>
-
-</body>
-</html>
 
