@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gioco dei Colori</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .game-container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .color-box {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .scoreboard {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div id="colorBoxContainer"></div>
+        <div class="scoreboard">
+            <p>Tempo di reazione: <span id="reactionTime">Nessun tempo registrato</span></p>
+            <p>Tempi di reazione totali: <span id="reactionTimesList">[]</span></p>
+        </div>
+    </div>
+
+    <script>
+        let reactionTimes = [];
+        let startTime;
+        let targetColor;
+        const colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'pink', 'brown'];
+
+        // Funzione per generare un numero casuale
+        function getRandomColor() {
+            const randomIndex = Math.floor(Math.random() * colors.length);
+            return colors[randomIndex];
+        }
+
+        // Funzione per creare i box colorati
+        function createColorBoxes() {
+            const container = document.getElementById('colorBoxContainer');
+            container.innerHTML = '';  // Svuota la vecchia lista
+
+            colors.forEach(color => {
+                const box = document.createElement('div');
+                box.className = 'color-box';
+                box.style.backgroundColor = color;
+                box.onclick = () => handleColorClick(color);
+                container.appendChild(box);
+            });
+        }
+
+        // Funzione per avviare un nuovo round
+        function startRound() {
+            createColorBoxes();
+            targetColor = getRandomColor();
+            console.log("Colore target:", targetColor); // Per debug
+
+            // Aggiungi il testo sopra la casella con il colore target
+            const targetLabel = document.createElement('div');
+            targetLabel.style.fontSize = '24px';
+            targetLabel.style.fontWeight = 'bold';
+            targetLabel.style.marginBottom = '20px';
+            targetLabel.innerText = `Clicca sul colore: ${targetColor}`;
+            document.getElementById('colorBoxContainer').insertBefore(targetLabel, document.getElementById('colorBoxContainer').firstChild);
+
+            // Registra il tempo di inizio
+            startTime = Date.now();
+        }
+
+        // Funzione per gestire il click sull'elemento
+        function handleColorClick(colorClicked) {
+            if (colorClicked === targetColor) {
+                const reactionTime = Date.now() - startTime;
+                reactionTimes.push(reactionTime);
+
+                // Aggiorna la UI con il tempo di reazione
+                document.getElementById('reactionTime').innerText = `${reactionTime} ms`;
+                document.getElementById('reactionTimesList').innerText = JSON.stringify(reactionTimes);
+
+                // Inizia un nuovo round dopo 1 secondo
+                setTimeout(startRound, 1000);
+            }
+        }
+
+        // Avvia il gioco
+        setInterval(startRound, 3000);  // Avvia il gioco ogni 3 secondi
+
+    </script>
+</body>
+</html>
