@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gioco dei Numeri Primi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .game-container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .number {
+            font-size: 50px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .scoreboard {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="number" id="randomNumber"></div>
+        <div class="scoreboard">
+            <p>Tempo di reazione: <span id="reactionTime">Nessun tempo registrato</span></p>
+            <p>Tempi di reazione totali: <span id="reactionTimesList">[]</span></p>
+        </div>
+    </div>
+
+    <script>
+        let reactionTimes = [];
+        let intervalId;
+        let startTime;
+
+        // Funzione per verificare se un numero è primo
+        function isPrime(n) {
+            if (n <= 1) return false;
+            for (let i = 2; i <= Math.sqrt(n); i++) {
+                if (n % i === 0) return false;
+            }
+            return true;
+        }
+
+        // Funzione per generare un numero casuale
+        function getRandomNumber() {
+            return Math.floor(Math.random() * 100) + 1;  // Numero tra 1 e 100
+        }
+
+        // Funzione per aggiornare il numero sullo schermo
+        function updateNumber() {
+            const number = getRandomNumber();
+            document.getElementById("randomNumber").innerText = number;
+            if (isPrime(number)) {
+                // Iniziamo a tracciare il tempo appena viene mostrato un numero primo
+                startTime = Date.now();
+                document.getElementById("randomNumber").onclick = handleClick;
+            } else {
+                document.getElementById("randomNumber").onclick = null;  // Disabilitiamo il click su numeri non primi
+            }
+        }
+
+        // Funzione per gestire il click su un numero primo
+        function handleClick() {
+            const reactionTime = Date.now() - startTime;
+            reactionTimes.push(reactionTime);
+
+            // Mostra il tempo di reazione
+            document.getElementById("reactionTime").innerText = `${reactionTime} ms`;
+
+            // Aggiorna la lista dei tempi di reazione
+            document.getElementById("reactionTimesList").innerText = JSON.stringify(reactionTimes);
+
+            // Reset per il prossimo numero
+            clearInterval(intervalId);
+            setTimeout(() => {
+                intervalId = setInterval(updateNumber, 3000);  // Ripristina l'intervallo ogni 3 secondi
+            }, 1000);
+        }
+
+        // Avvia il gioco
+        intervalId = setInterval(updateNumber, 3000);  // Ogni 3 secondi
+
+    </script>
+</body>
+</html>
